@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Health Assistant | V‑Medithon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <meta name="theme-color" content="#7c3aed">
+    <style>
+      :root {
+        --vibrant-1: #2563eb; /* blue-600 */
+        --vibrant-2: #7c3aed; /* purple-600 */
+        --vibrant-3: #06b6d4; /* cyan-600 */
+        --bubble-user: linear-gradient(135deg, #2563eb, #7c3aed);
+        --bubble-bot: linear-gradient(135deg, #06b6d4, #2563eb);
+      }
+      .chat-wrap { max-width: 900px; margin: 0 auto; }
+      .chat-window {
+        height: 60vh;
+        overflow: auto;
+        border: 0;
+        background: radial-gradient(1200px 500px at 10% 0%, rgba(124,58,237,0.12), transparent 60%),
+                    radial-gradient(1000px 500px at 90% 20%, rgba(37,99,235,0.12), transparent 60%),
+                    #ffffff;
+        border-radius: 16px;
+        padding: 16px;
+        box-shadow: 0 12px 30px rgba(2,6,23,0.10), inset 0 0 0 1px #e5e7eb;
+      }
+      .msg { display: flex; margin: 12px 0; }
+      .msg .bubble {
+        padding: 12px 14px;
+        border-radius: 14px;
+        max-width: 80%;
+        color: #ffffff;
+        box-shadow: 0 10px 22px rgba(2,6,23,0.15);
+      }
+      .msg.user { justify-content: flex-end; }
+      .msg.user .bubble { background: var(--bubble-user); }
+      .msg.bot .bubble { background: var(--bubble-bot); }
+      .input-row { display: grid; grid-template-columns: 1fr 130px; gap: 12px; margin-top: 14px; }
+      .input {
+        background: #ffffff;
+        color: #0f172a;
+        border: 2px solid #e5e7eb;
+        border-radius: 999px;
+        padding: 12px 16px;
+        box-shadow: 0 8px 20px rgba(2,6,23,0.06);
+      }
+      .input:focus { outline: none; border-color: var(--vibrant-1); box-shadow: 0 10px 24px rgba(37,99,235,0.20); }
+      .btn.btn-primary { background: linear-gradient(135deg, #2563eb, #7c3aed); border-color: transparent; }
+      .btn.btn-primary:hover { filter: brightness(1.05); }
+      .source { font-size: 12px; color: #475569; margin-top: 6px; }
+      .pill { border:1px solid #e5e7eb; border-radius: 999px; padding: 4px 8px; color:#334155; font-size:12px; display:inline-block; margin-right:6px; background:#f8fafc; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container nav">
+            <a class="logo" href="index.html">V‑Medithon</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="section">
+            <div class="container chat-wrap">
+                <h1 class="section-title">AI Health Assistant</h1>
+                <p class="section-lead">Ask about healthcare challenges, solutions, or resources. Results are grounded in our challenge knowledge base.</p>
+                <div id="chat" class="chat-window" aria-live="polite"></div>
+                <div class="input-row">
+                    <input id="q" class="input" placeholder="Ask a question (e.g., ideas for rural telehealth diabetes)" />
+                    <button id="send" class="btn btn-primary">Ask</button>
+                </div>
+                <div id="status" class="source" aria-live="polite"></div>
+            </div>
+        </section>
+    </main>
+
+    <script type="module">
+    import { OPENROUTER_API_KEY, OPENROUTER_URL, LLM_MODEL } from './chatbot/config.js';
+    const chat = document.getElementById('chat');
+    const q = document.getElementById('q');
+    const send = document.getElementById('send');
+    const status = document.getElementById('status');
+
+    // External LLM chat (direct from client; demo-only)
+    async function llmChat(message){
+      try {
+        status.textContent = 'Contacting AI…';
+        const payload = {
+          model: LLM_MODEL,
+          messages: [
+            { role: 'system', content: 'You are a friendly medical assistant for educational purposes only. Strictly answer only healthcare and medically-related topics (symptoms, conditions, prevention, lifestyle, clinical workflows). If a request is not medical, politely decline and ask the user to rephrase in a medical context. Do not provide legal, financial, coding, or unrelated advice. Always advise consulting a healthcare professional for diagnosis and treatment, and direct emergencies to seek urgent care.' },
+            { role: 'user', content: message }
+          ],
+          temperature: 0.7
+        };
+        const resp = await fetch(OPENROUTER_URL, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
+            'Content-Type': 'application/json',
+            'HTTP-Referer': location.origin,
+            'X-Title': 'V-Medithon'
+          },
+          body: JSON.stringify(payload)
+        });
+        const j = await resp.json();
+        const txt = j?.choices?.[0]?.message?.content || j?.error || 'No response';
+        status.textContent = 'AI ready';
+        return txt;
+      } catch (e) {
+        status.textContent = 'AI offline';
+        return 'Sorry, I could not reach the AI service.';
+      }
+    }
+
+    function addMsg(role, html){
+      const wrap = document.createElement('div');
+      wrap.className = 'msg ' + role;
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble';
+      bubble.innerHTML = html;
+      wrap.appendChild(bubble);
+      chat.appendChild(wrap);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    async function semantic(query){
+      try {
+        status.textContent = 'Thinking…';
+        const resp = await fetch('http://localhost:8000/semantic_search', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query, top_k: 6, hybrid: true, alpha: 0.7 })
+        });
+        if (!resp.ok) throw new Error('offline');
+        const { results } = await resp.json();
+        status.textContent = results?.length ? 'Hybrid (semantic + keyword)' : 'No semantic matches';
+        return results || [];
+      } catch (e) {
+        status.textContent = 'Semantic backend offline';
+        return [];
+      }
+    }
+
+    async function onAsk(){
+      const text = q.value.trim();
+      if (!text) return;
+      addMsg('user', text);
+      q.value = '';
+      // Smarter, permissive medical guard: allows disease names and medical verbs
+      const lower = text.toLowerCase();
+      const medicalHints = ['health','medical','medicine','doctor','patient','clinic','hospital','nurse','vaccine','dose','bp','blood','glucose','insulin','fever','pain','injury'];
+      const medicalVerbs = ['cure','treat','treatment','therapy','symptom','diagnose','diagnosis','prevent','prevention','manage','management','rehab','side effect'];
+      const diseaseSuffix = /(itis|osis|emia|oma|algia|pathy|plasty|ectomy|emia|emia)\b/i;
+      let DISEASE_SET = null;
+      try {
+        const cache = window.__disease_cache;
+        if (!cache) {
+          const r = await fetch('assets/data/disease_guides.json');
+          if (r.ok) {
+            const arr = await r.json();
+            DISEASE_SET = new Set(arr.map(x => String(x.disease||'').toLowerCase()));
+            window.__disease_cache = DISEASE_SET;
+          }
+        } else {
+          DISEASE_SET = cache;
+        }
+      } catch {}
+      const tokens = lower.split(/[^a-z0-9']+/).filter(Boolean);
+      const hasDisease = DISEASE_SET ? tokens.some(t => DISEASE_SET.has(t)) : false;
+      const hasMedical = medicalHints.some(h => lower.includes(h)) || medicalVerbs.some(v => lower.includes(v)) || diseaseSuffix.test(lower) || hasDisease;
+      const nonMedicalBlacklist = ['stocks','crypto','football','cricket','gaming','game','video game','code','coding','programming','python','java','loan','tax','politics'];
+      const clearlyNonMedical = nonMedicalBlacklist.some(w => lower.includes(w));
+      if (clearlyNonMedical && !hasMedical) {
+        addMsg('bot', 'I can only help with medical and healthcare topics. Please rephrase your question with a medical focus (symptoms, conditions, treatment, prevention).');
+        return;
+      }
+      const answer = await llmChat(text);
+      addMsg('bot', answer.replace(/\n/g,'<br>'));
+    }
+
+    send.addEventListener('click', onAsk);
+    q.addEventListener('keydown', (e)=>{ if (e.key==='Enter') onAsk(); });
+    </script>
+</body>
+</html>
+
+

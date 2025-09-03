@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Dashboard | V‑Medithon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    .grid { display:grid; grid-template-columns: 1fr 1fr; gap:18px; }
+    .card { transition: box-shadow .2s ease, transform .05s ease; }
+    .card:hover { box-shadow: 0 14px 28px rgba(2,6,23,0.12); transform: translateY(-1px); }
+    .meter { height: 12px; background:#e5e7eb; border-radius:999px; overflow:hidden; }
+    .meter > div { height:100%; background: linear-gradient(90deg,#22c55e,#2563eb); width: 72%; }
+    .pill { border:1px solid #e5e7eb; border-radius:999px; padding:6px 10px; background:#f8fafc; color:#334155; font-size:12px; display:inline-block; margin-right:6px; }
+    .badge { display:inline-block; padding:6px 10px; border-radius:999px; font-size:12px; color:#ffffff; }
+    .badge.green { background:#16a34a; }
+    .badge.blue { background:#2563eb; }
+    .badge.amber { background:#f59e0b; }
+    .badge.red { background:#dc2626; }
+    .heading { margin:0 0 10px; font-size:18px; }
+    .row { display:flex; gap:10px; flex-wrap:wrap; }
+    .field { background:#f8fafc; border:1px solid #e5e7eb; border-radius:10px; padding:10px 12px; color:#334155; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="logo" href="index.html">V‑Medithon</a>
+      <nav class="main-nav">
+        <a href="ai.html" class="btn btn-outline">AI Chatbot</a>
+        <a href="portal.html" class="btn btn-secondary">Switch Role</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <h1 class="section-title">Patient Dashboard</h1>
+        <p class="section-lead">Track your profile, history, medications, vaccinations and goals in one place.</p>
+        <div class="grid">
+          <!-- Patient Profile -->
+          <article class="card">
+            <h4 class="heading">Patient Profile</h4>
+            <div class="row">
+              <div class="field">Name: <strong id="pName">Arun Kumar</strong></div>
+              <div class="field">Age: <strong id="pAge">42</strong></div>
+              <div class="field">Gender: <strong id="pGender">Male</strong></div>
+            </div>
+            <div class="row" style="margin-top:8px;">
+              <div class="field">Contact: <strong id="pContact">+91 90000 11111</strong></div>
+              <div class="field">Emergency: <strong id="pEmerg">Meera (Sister) — +91 98888 22222</strong></div>
+            </div>
+          </article>
+
+          <!-- Medical History -->
+          <article class="card">
+            <h4 class="heading">Medical History</h4>
+            <div style="color:#475569;">
+              <div><span class="badge blue">Chronic</span> Type 2 Diabetes (dx 2018)</div>
+              <div style="margin-top:6px;"><span class="badge blue">Allergies</span> Penicillin (rash)</div>
+              <div style="margin-top:6px;"><span class="badge blue">Surgeries</span> Appendectomy (2012)</div>
+              <div style="margin-top:6px;"><span class="badge blue">Ongoing</span> Nutrition coaching, home BP monitoring</div>
+            </div>
+          </article>
+
+          <!-- Current Medications -->
+          <article class="card" style="grid-column:1 / -1;">
+            <h4 class="heading">Current Medications</h4>
+            <table style="width:100%; border-collapse:collapse;">
+              <thead>
+                <tr style="border-bottom:1px solid #e5e7eb; color:#334155;">
+                  <th style="text-align:left; padding:8px 10px;">Medicine</th>
+                  <th style="text-align:left; padding:8px 10px;">Dosage</th>
+                  <th style="text-align:left; padding:8px 10px;">Timing</th>
+                  <th style="text-align:left; padding:8px 10px;">Refill</th>
+                </tr>
+              </thead>
+              <tbody id="medTable" style="font-size:14px; color:#475569;"></tbody>
+            </table>
+          </article>
+
+          <!-- Vaccination Records -->
+          <article class="card" style="grid-column:1 / -1;">
+            <h4 class="heading">Vaccination Records</h4>
+            <div id="vaccWrap" style="display:flex; flex-wrap:wrap; gap:8px;"></div>
+          </article>
+
+          <!-- Goals / Upcoming -->
+          <article class="card">
+            <h4 class="heading">Health Goals</h4>
+            <div class="meter" aria-label="Goal progress"><div></div></div>
+            <div style="margin-top:8px; color:#475569; font-size:14px;">Weekly activity, sleep, and nutrition score</div>
+          </article>
+          <article class="card">
+            <h4 class="heading">Upcoming</h4>
+            <ul style="margin:0; padding-left:18px; color:#475569;">
+              <li>Visit with Dr. Rao — Sep 14</li>
+              <li>Lab draw (A1C, lipid panel) — Sep 20</li>
+            </ul>
+          </article>
+
+          <!-- New Appointment -->
+          <article class="card" style="grid-column:1 / -1;">
+            <h4 class="heading">New Appointment</h4>
+            <form id="apptForm" style="display:grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap:10px; align-items:end;">
+              <div style="display:grid; gap:6px;">
+                <label for="spec">Specialty</label>
+                <select id="spec" class="input" style="padding:12px 14px; border:1px solid #e5e7eb; border-radius:10px;">
+                  <option>Cardiology</option>
+                  <option>Neurology</option>
+                  <option>Urology</option>
+                  <option>Endocrinology</option>
+                  <option>Pulmonology</option>
+                  <option>Gastroenterology</option>
+                  <option>Dermatology</option>
+                  <option>Orthopedics</option>
+                  <option>Pediatrics</option>
+                  <option>Ophthalmology</option>
+                </select>
+              </div>
+              <div style="display:grid; gap:6px;">
+                <label for="doc">Doctor</label>
+                <select id="doc" class="input" style="padding:12px 14px; border:1px solid #e5e7eb; border-radius:10px;"></select>
+              </div>
+              <div style="display:grid; gap:6px;">
+                <label for="time">Time</label>
+                <select id="time" class="input" style="padding:12px 14px; border:1px solid #e5e7eb; border-radius:10px;">
+                  <option>09:00</option>
+                  <option>10:30</option>
+                  <option>11:45</option>
+                  <option>14:00</option>
+                  <option>15:30</option>
+                </select>
+              </div>
+              <div style="display:grid; gap:6px;">
+                <label for="date">Available Date</label>
+                <select id="date" class="input" style="padding:12px 14px; border:1px solid #e5e7eb; border-radius:10px;"></select>
+              </div>
+              <div style="grid-column:1 / -1; display:flex; gap:10px; align-items:center;">
+                <button class="btn btn-primary" type="submit">Book Appointment</button>
+                <span id="apptMsg" style="color:#16a34a;"></span>
+              </div>
+            </form>
+          </article>
+
+          <!-- ZOHO CRM Integration -->
+          <article class="card" style="grid-column:1 / -1;">
+            <h4>ZOHO CRM - Patient Portal</h4>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin-bottom:16px;">
+              <div>
+                <h5 style="margin:0 0 8px 0; color:#1e40af;">Appointment History</h5>
+                <div id="apptHistory" style="color:#475569; font-size:14px;">
+                  <div>Total Appointments: <strong>24</strong></div>
+                  <div>Completed: <strong>21</strong></div>
+                  <div>Upcoming: <strong>3</strong></div>
+                </div>
+              </div>
+              <div>
+                <h5 style="margin:0 0 8px 0; color:#1e40af;">Communication Log</h5>
+                <div id="commLog" style="color:#475569; font-size:14px;">
+                  <div>Last Contact: <strong>2 days ago</strong></div>
+                  <div>Follow-up Due: <strong>Tomorrow</strong></div>
+                  <div>Messages: <strong>8</strong></div>
+                </div>
+              </div>
+            </div>
+            
+            <div style="margin-top:16px;">
+              <h5 style="margin:0 0 12px 0; color:#1e40af;">Recent Interactions</h5>
+              <div id="interactionsList" style="font-size:13px; color:#64748b;">
+                <div style="padding:8px 0; border-bottom:1px solid #f1f5f9;">📞 Appointment reminder call - Dr. Rao's office</div>
+                <div style="padding:8px 0; border-bottom:1px solid #f1f5f9;">📧 Lab results follow-up email</div>
+                <div style="padding:8px 0; border-bottom:1px solid #f1f5f9;">💬 SMS: Medication refill reminder</div>
+                <div style="padding:8px 0;">📋 Annual health checkup scheduled</div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script>
+  // Demo meds
+  const meds = [
+    { name:'Metformin', dose:'500 mg', timing:'BID with meals', refill:'in 10 days' },
+    { name:'Amlodipine', dose:'5 mg', timing:'OD morning', refill:'in 18 days' },
+  ];
+  const medT = document.getElementById('medTable');
+  meds.forEach(m=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td style="padding:8px 10px;">${m.name}</td><td style="padding:8px 10px;">${m.dose}</td><td style="padding:8px 10px;">${m.timing}</td><td style="padding:8px 10px;"><span class='badge amber'>${m.refill}</span></td>`;
+    medT.appendChild(tr);
+  });
+  // Demo vaccines
+  const vacc = [
+    { name:'Influenza', status:'Completed', color:'green' },
+    { name:'COVID-19 Booster', status:'Due', color:'red' },
+    { name:'Tdap', status:'Completed', color:'green' },
+  ];
+  const wrap = document.getElementById('vaccWrap');
+  vacc.forEach(v=>{
+    const chip = document.createElement('span');
+    chip.className = `badge ${v.color}`;
+    chip.textContent = `${v.name}: ${v.status}`;
+    wrap.appendChild(chip);
+  });
+
+  // Appointment scheduler
+  const doctorsBySpec = {
+    'Cardiology': ['Dr. Das','Dr. Iyer','Dr. Menon'],
+    'Neurology': ['Dr. Kapoor','Dr. Mukherjee','Dr. Nair'],
+    'Urology': ['Dr. Reddy','Dr. Verma','Dr. Jain'],
+    'Endocrinology': ['Dr. Rao','Dr. Kulkarni','Dr. Pillai'],
+    'Pulmonology': ['Dr. Bose','Dr. Sinha','Dr. Tyagi'],
+    'Gastroenterology': ['Dr. Gupta','Dr. Singh','Dr. Sharma'],
+    'Dermatology': ['Dr. Shah','Dr. Kaur','Dr. Khanna'],
+    'Orthopedics': ['Dr. Thomas','Dr. Roy','Dr. Banerjee'],
+    'Pediatrics': ['Dr. Joshi','Dr. Chatterjee','Dr. Mishra'],
+    'Ophthalmology': ['Dr. Mehta','Dr. Goel','Dr. Bhatia']
+  };
+  function randomFutureDates(n){
+    const out=[]; const today=new Date();
+    for(let i=1;i<=n;i++){ const d=new Date(); d.setDate(today.getDate()+ (Math.floor(Math.random()*20)+1)); out.push(d.toISOString().slice(0,10)); }
+    return Array.from(new Set(out)).slice(0,5);
+  }
+  const specEl = document.getElementById('spec');
+  const docEl = document.getElementById('doc');
+  const dateEl = document.getElementById('date');
+  const msgEl = document.getElementById('apptMsg');
+  const formEl = document.getElementById('apptForm');
+  function refreshDoctors(){
+    const list = doctorsBySpec[specEl.value]||[];
+    docEl.innerHTML = list.map(n=>`<option>${n}</option>`).join('');
+    refreshDates();
+  }
+  function refreshDates(){
+    dateEl.innerHTML = randomFutureDates(7).sort().map(d=>`<option>${d}</option>`).join('');
+  }
+  specEl.addEventListener('change', refreshDoctors);
+  refreshDoctors();
+  formEl.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const appt = { spec: specEl.value, doctor: docEl.value, time: document.getElementById('time').value, date: dateEl.value };
+    const key='appointments';
+    const arr = JSON.parse(localStorage.getItem(key)||'[]');
+    arr.push(appt);
+    localStorage.setItem(key, JSON.stringify(arr));
+    msgEl.textContent = 'Appointment booked.';
+    setTimeout(()=> msgEl.textContent='', 3000);
+  });
+  </script>
+</body>
+</html>
+
+

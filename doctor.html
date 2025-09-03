@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor Dashboard | V‑Medithon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    .grid { display:grid; grid-template-columns: 1.25fr 1fr; gap:20px; }
+    .card { transition: box-shadow .2s ease, transform .05s ease; }
+    .card:hover { box-shadow: 0 14px 28px rgba(2,6,23,0.12); transform: translateY(-1px); }
+    .card h4 { margin:0 0 12px; font-size:18px; }
+    .tag { display:inline-block; padding:6px 10px; border-radius:999px; background:linear-gradient(135deg,#38bdf8,#2563eb); color:#ffffff; border:1px solid #93c5fd; font-size:12px; margin-right:8px; }
+    .table { width:100%; border-collapse: collapse; }
+    .table th, .table td { text-align:left; padding:12px 12px; border-bottom:1px solid #e5e7eb; font-size:15px; }
+    .kpis { display:grid; grid-template-columns: repeat(4,1fr); gap:16px; }
+    .kpi { background:#ffffff; border:1px solid #e5e7eb; border-radius:14px; padding:18px; text-align:center; }
+    .kpi .num { font-size:26px; font-weight:800; color:#2563eb; }
+    .btn-tab { display:inline-block; padding:10px 14px; border-radius:999px; border:1px solid #dbeafe; background:#eff6ff; color:#1d4ed8; margin-right:8px; transition:all .2s; }
+    .btn-tab:hover { background:#dbeafe; box-shadow: 0 8px 16px rgba(29,78,216,0.15); }
+    .calendar { display:grid; grid-template-columns: repeat(7, 1fr); gap:8px; }
+    .day { height:54px; border:1px solid #e5e7eb; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:13px; color:#334155; background:#ffffff; }
+    .day.past-missed { background:#fee2e2; color:#991b1b; border-color:#fecaca; }
+    .day.today { outline: 2px dashed #2563eb; }
+    .day.logged { background:#dcfce7; color:#166534; border-color:#bbf7d0; }
+    .calendar-legend { display:flex; gap:12px; align-items:center; font-size:12px; color:#475569; }
+    .legend-dot { width:12px; height:12px; border-radius:3px; display:inline-block; margin-right:6px; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="logo" href="index.html">V‑Medithon</a>
+      <nav class="main-nav">
+        <a href="ai.html" class="btn btn-outline">AI Chatbot</a>
+        <a href="portal.html" class="btn btn-secondary">Switch Role</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <h1 class="section-title">Doctor Dashboard</h1>
+        <p class="section-lead">Quick view of your patients, tasks, checklists, and attendance. Theme matches the main site.</p>
+
+        <div class="kpis" style="margin:10px 0 18px;">
+          <div class="kpi"><div>Patients</div><div class="num" id="kpiPatients">24</div></div>
+          <div class="kpi"><div>Tasks</div><div class="num" id="kpiTasks">7</div></div>
+          <div class="kpi"><div>Unread</div><div class="num" id="kpiUnread">3</div></div>
+          <div class="kpi"><div>Alerts</div><div class="num" id="kpiAlerts">2</div></div>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <h4>Patient Panel</h4>
+            <table class="table" id="patientTable">
+              <thead><tr><th>Name</th><th>Condition</th><th>Next Appt</th><th>Tags</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </article>
+          <article class="card">
+            <h4>Today’s Tasks</h4>
+            <ul id="tasks" style="margin:0; padding-left:18px; color:#475569;"></ul>
+          </article>
+
+          <article class="card" style="grid-column:1 / -1;">
+            <h4>Patient Checklists</h4>
+            <div id="checklists" style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;"></div>
+          </article>
+
+          <article class="card" style="grid-column:1 / -1;">
+            <div style="display:flex; align-items:center; justify-content:space-between;">
+              <h4>Attendance (This Month)</h4>
+              <button id="logToday" class="btn btn-primary">Log In for Today</button>
+            </div>
+            <div class="calendar-legend" style="margin:8px 0 12px;">
+              <span><span class="legend-dot" style="background:#dcfce7; border:1px solid #bbf7d0;"></span> Logged</span>
+              <span><span class="legend-dot" style="background:#ffffff; border:1px solid #e5e7eb;"></span> Neutral</span>
+              <span><span class="legend-dot" style="background:#fee2e2; border:1px solid #fecaca;"></span> Missed</span>
+            </div>
+            <div id="calendar" class="calendar"></div>
+          </article>
+
+          <!-- ZOHO CRM Integration -->
+          <article class="card" style="grid-column:1 / -1;">
+            <h4>ZOHO CRM - Doctor Portal</h4>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin-bottom:16px;">
+              <div>
+                <h5 style="margin:0 0 8px 0; color:#1e40af;">Patient Analytics</h5>
+                <div id="patientAnalytics" style="color:#475569; font-size:14px;">
+                  <div>Total Patients: <strong>47</strong></div>
+                  <div>Active Cases: <strong>23</strong></div>
+                  <div>Follow-ups Due: <strong>8</strong></div>
+                </div>
+              </div>
+              <div>
+                <h5 style="margin:0 0 8px 0; color:#1e40af;">Communication Center</h5>
+                <div id="commCenter" style="color:#475569; font-size:14px;">
+                  <div>Unread Messages: <strong>3</strong></div>
+                  <div>Appointments Today: <strong>6</strong></div>
+                  <div>Lab Results Pending: <strong>2</strong></div>
+                </div>
+              </div>
+            </div>
+            
+            <div style="margin-top:16px;">
+              <h5 style="margin:0 0 12px 0; color:#1e40af;">Patient Follow-ups</h5>
+              <div id="followUpsList" style="font-size:13px; color:#64748b;">
+                <div style="padding:8px 0; border-bottom:1px solid #f1f5f9;">🔄 Arun Kumar - Diabetes checkup (2 days)</div>
+                <div style="padding:8px 0; border-bottom:1px solid #f1f5f9;">🔄 Meera Shah - BP monitoring (1 week)</div>
+                <div style="padding:8px 0; border-bottom:1px solid #f1f5f9;">🔄 Ravi Patel - COPD follow-up (3 days)</div>
+                <div style="padding:8px 0;">🔄 Priya Singh - New patient consultation (Tomorrow)</div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+  const demoPatients = [
+    { name:'Arun Kumar', cond:'Type 2 Diabetes', appt:'2025-09-12', tags:['A1C','Diet'] },
+    { name:'Meera Shah', cond:'Hypertension', appt:'2025-09-14', tags:['BP','Lifestyle'] },
+    { name:'Ravi Patel', cond:'COPD', appt:'2025-09-16', tags:['Inhaler','Follow-up'] }
+  ];
+  const demoTasks = [ 'Review labs for A. Kumar', 'Approve refill – amlodipine', 'Prepare referral – pulmonology', 'Check remote BP logs' ];
+  const tbody = document.querySelector('#patientTable tbody');
+  demoPatients.forEach(p=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${p.name}</td><td>${p.cond}</td><td>${p.appt}</td><td>${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</td>`;
+    tbody.appendChild(tr);
+  });
+  const taskUl = document.getElementById('tasks');
+  demoTasks.forEach(t=>{ const li=document.createElement('li'); li.textContent=t; taskUl.appendChild(li); });
+
+  // Checklists per patient (persist in localStorage)
+  const checklistRoot = document.getElementById('checklists');
+  const checklistTemplate = (p) => {
+    const key = `doc_check_${p.name}`;
+    const state = JSON.parse(localStorage.getItem(key) || '{}');
+    const items = [
+      'Medication reconciliation',
+      'Vitals reviewed',
+      'Labs ordered/reviewed',
+      'Care plan updated'
+    ];
+    const wrap = document.createElement('div');
+    wrap.className = 'card';
+    wrap.innerHTML = `<h4 style="margin:0 0 8px;">${p.name} — Checklist</h4>`;
+    const ul = document.createElement('ul'); ul.style.margin='0'; ul.style.paddingLeft='18px'; ul.style.color='#475569';
+    items.forEach((text, idx)=>{
+      const id = `${key}_${idx}`;
+      const li = document.createElement('li');
+      const cb = document.createElement('input'); cb.type='checkbox'; cb.id=id; cb.checked = !!state[id]; cb.style.marginRight='8px';
+      cb.addEventListener('change', ()=>{
+        state[id] = cb.checked; localStorage.setItem(key, JSON.stringify(state));
+      });
+      const label = document.createElement('label'); label.htmlFor=id; label.textContent=text;
+      li.appendChild(cb); li.appendChild(label); ul.appendChild(li);
+    });
+    wrap.appendChild(ul);
+    return wrap;
+  };
+  demoPatients.forEach(p=> checklistRoot.appendChild(checklistTemplate(p)));
+
+  // Attendance calendar
+  const calRoot = document.getElementById('calendar');
+  const logBtn = document.getElementById('logToday');
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth(); // 0-index
+  const daysInMonth = new Date(year, month+1, 0).getDate();
+  const startDay = new Date(year, month, 1).getDay(); // 0=Sun
+  const attKey = `doc_att_${year}_${month+1}`;
+  const att = JSON.parse(localStorage.getItem(attKey) || '{}'); // { day: true }
+
+  for (let i=0; i<startDay; i++) {
+    const d = document.createElement('div'); d.className='day'; d.style.visibility='hidden'; calRoot.appendChild(d);
+  }
+  for (let d=1; d<=daysInMonth; d++){
+    const cell = document.createElement('div');
+    cell.className = 'day';
+    cell.textContent = d;
+    const cellDate = new Date(year, month, d);
+    const isPast = cellDate < new Date(year, month, today.getDate());
+    const isToday = d === today.getDate();
+    if (att[d]) cell.classList.add('logged');
+    else if (isPast && !isToday) cell.classList.add('past-missed');
+    if (isToday) cell.classList.add('today');
+    calRoot.appendChild(cell);
+  }
+  logBtn.addEventListener('click', ()=>{
+    att[today.getDate()] = true;
+    localStorage.setItem(attKey, JSON.stringify(att));
+    calRoot.querySelectorAll('.day').forEach(el=>{
+      if (el.style.visibility==='hidden') return;
+      const d = parseInt(el.textContent, 10);
+      el.classList.remove('logged','past-missed','today');
+      const cellDate = new Date(year, month, d);
+      const isPast = cellDate < new Date(year, month, today.getDate());
+      const isToday = d === today.getDate();
+      if (att[d]) el.classList.add('logged');
+      else if (isPast && !isToday) el.classList.add('past-missed');
+      if (isToday) el.classList.add('today');
+    });
+  });
+  </script>
+</body>
+</html>
+
+

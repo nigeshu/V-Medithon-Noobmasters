@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Problems | V‑Medithon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container nav">
+            <a class="logo" href="index.html">V‑Medithon</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <h1 class="section-title">Explore Current Challenges</h1>
+                <p class="section-lead">Dive into curated healthcare problem statements. Filter by category, search by keywords, and sort by potential impact.</p>
+
+                <div class="card" style="margin-bottom:16px;">
+                    <div class="filters" style="display:grid; grid-template-columns: 1.2fr 180px 160px 160px; gap: 10px; align-items:center;">
+                        <div class="search-wrap">
+                          <span class="search-icon">🔎</span>
+                          <input id="search" class="search-input" type="text" placeholder="Search challenges (title, tags, details)" aria-label="Search challenges" autocomplete="off">
+                          <div id="suggestions" class="suggestions"></div>
+                        </div>
+                        <select id="category" class="select" aria-label="Filter by category">
+                            <option value="">All categories</option>
+                        </select>
+                        <select id="difficulty" class="select" aria-label="Filter by difficulty">
+                            <option value="">All difficulty</option>
+                            <option>Beginner</option>
+                            <option>Intermediate</option>
+                            <option>Advanced</option>
+                        </select>
+                        <select id="region" class="select" aria-label="Filter by region">
+                            <option value="">All regions</option>
+                        </select>
+                        <select id="sort" class="select" aria-label="Sort by impact or difficulty">
+                            <option value="impact_desc">Impact: High to Low</option>
+                            <option value="impact_asc">Impact: Low to High</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="list" class="card-grid"></div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+    async function loadChallenges() {
+      const res = await fetch('assets/data/challenges.json');
+      const all = await res.json();
+      return all;
+    }
+
+    function uniqueCategories(items){
+      return Array.from(new Set(items.map(i => i.category))).sort();
+    }
+    function uniqueRegions(items){
+      return Array.from(new Set(items.flatMap(i => i.regions || []))).sort();
+    }
+
+    function highlight(text, terms){
+      if (!terms.length) return text;
+      const pattern = new RegExp('(' + terms.map(t => t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|') + ')','ig');
+      return text.replace(pattern, '<mark style="background:#134e4a; color:#e5e7eb;">$1</mark>');
+    }
+
+    function render(items){
+      const list = document.getElementById('list');
+      const q = document.getElementById('search').value.trim();
+      const terms = q ? q.split(/\s+/).filter(Boolean) : [];
+      list.innerHTML = items.map(item => `
+        <article class="card">
+          <h3>${highlight(item.title, terms)}</h3>
+          <p style="font-size: 16px; line-height: 1.5; margin-bottom: 12px;">${highlight(item.summary, terms)}</p>
+          
+          <div style="background: #f8fafc; border-left: 4px solid #3b82f6; padding: 12px; margin: 12px 0; border-radius: 4px;">
+            <h4 style="margin: 0 0 8px 0; color: #1e40af; font-size: 14px; font-weight: 600;">Detailed Description:</h4>
+            <p style="margin: 0; color: #374151; line-height: 1.6; font-size: 14px;">${highlight(item.details, terms)}</p>
+          </div>
+          
+          <div style="display: flex; justify-content: space-between; align-items: center; margin: 12px 0;">
+            <div style="display: flex; gap: 16px; font-size: 13px; color: #6b7280;">
+              <span><strong>Category:</strong> ${item.category}</span>
+              <span><strong>Difficulty:</strong> ${item.difficulty}</span>
+              <span><strong>Impact:</strong> ${item.impact_score}/10</span>
+            </div>
+            <div style="font-size: 13px; color: #6b7280;">
+              <strong>Regions:</strong> ${(item.regions || []).join(', ')}
+            </div>
+          </div>
+          
+          <div style="margin-top: 12px; display:flex; flex-wrap:wrap; gap:6px;">
+            ${item.tags.map(t => `<span style=\"background: #e0f2fe; color: #0369a1; border-radius:999px; padding:4px 8px; font-size:12px; font-weight: 500;\">${t}</span>`).join('')}
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function scoreFuzzy(haystack, needle){
+      if (!needle) return 1;
+      let score = 0, lastIndex = -1;
+      for (const ch of needle) {
+        const i = haystack.indexOf(ch, lastIndex + 1);
+        if (i === -1) return 0;
+        score += 1 / (i - lastIndex);
+        lastIndex = i;
+      }
+      return score;
+    }
+
+    function applyFilters(data){
+      const q = document.getElementById('search').value.trim().toLowerCase();
+      const cat = document.getElementById('category').value;
+      const dif = document.getElementById('difficulty').value;
+      const region = document.getElementById('region').value;
+      const sort = document.getElementById('sort').value;
+      let items = data.map(d => {
+        const inText = (d.title + ' ' + d.summary + ' ' + d.details + ' ' + d.tags.join(' ') + ' ' + (d.category||'')).toLowerCase();
+        const fuzzy = scoreFuzzy(inText, q);
+        return { ...d, _fuzzy: fuzzy };
+      }).filter(d => {
+        const inText = d._fuzzy > 0 || !q;
+        const matchesCat = !cat || d.category === cat;
+        const matchesDif = !dif || d.difficulty === dif;
+        const matchesRegion = !region || (d.regions||[]).includes(region);
+        return inText && matchesCat && matchesDif && matchesRegion;
+      });
+      if (sort === 'impact_desc') items.sort((a,b)=> (b.impact_score - a.impact_score) || (b._fuzzy - a._fuzzy));
+      if (sort === 'impact_asc') items.sort((a,b)=> (a.impact_score - b.impact_score) || (b._fuzzy - a._fuzzy));
+      return items;
+    }
+
+    (async function init(){
+      const data = await loadChallenges();
+      const catSelect = document.getElementById('category');
+      const regionSelect = document.getElementById('region');
+      uniqueCategories(data).forEach(c => {
+        const o = document.createElement('option'); o.value = c; o.textContent = c; catSelect.appendChild(o);
+      });
+      uniqueRegions(data).forEach(r => {
+        const o = document.createElement('option'); o.value = r; o.textContent = r; regionSelect.appendChild(o);
+      });
+      const update = ()=> render(applyFilters(data));
+      const searchEl = document.getElementById('search');
+      const sugg = document.getElementById('suggestions');
+      searchEl.addEventListener('input', ()=>{
+        const q = searchEl.value.trim().toLowerCase();
+        if (!q) { sugg.style.display='none'; update(); return; }
+        const candidates = Array.from(new Set(data.flatMap(d => [d.title, d.category, ...(d.tags||[])])));
+        const top = candidates
+          .map(c => ({ c, s: scoreFuzzy(c.toLowerCase(), q) }))
+          .filter(x => x.s > 0)
+          .sort((a,b)=>b.s-a.s)
+          .slice(0,8);
+        if (top.length === 0) { sugg.style.display='none'; update(); return; }
+        sugg.innerHTML = top.map(t => `<div style=\"padding:8px 10px; cursor:pointer;\" data-v=\"${t.c.replace(/\"/g,'') }\">${t.c}</div>`).join('');
+        sugg.style.display='block';
+        sugg.querySelectorAll('div').forEach(div => div.addEventListener('click', ()=>{ searchEl.value = div.dataset.v; sugg.style.display='none'; update(); }));
+        update();
+      });
+      document.getElementById('category').addEventListener('change', update);
+      document.getElementById('difficulty').addEventListener('change', update);
+      document.getElementById('region').addEventListener('change', update);
+      document.getElementById('sort').addEventListener('change', update);
+      update();
+
+      // Optional semantic re-rank if backend is available
+      async function semanticRerank(query){
+        try {
+          if (!query) return;
+          const resp = await fetch('http://localhost:8000/semantic_search', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ query, top_k: 20 })
+          });
+          if (!resp.ok) return;
+          const { results } = await resp.json();
+          const order = new Map(results.map((r, i)=> [r.id, i]));
+          const current = applyFilters(data);
+          current.sort((a,b)=> (order.has(a.id)?order.get(a.id):9999) - (order.has(b.id)?order.get(b.id):9999));
+          render(current);
+        } catch {}
+      }
+      searchEl.addEventListener('change', ()=> semanticRerank(searchEl.value.trim()));
+    })();
+    </script>
+</body>
+</html>
+
+

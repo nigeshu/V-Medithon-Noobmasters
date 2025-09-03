@@ -1,0 +1,1354 @@
+[
+  {
+    "id": "chronic-disease-monitoring",
+    "title": "Chronic Disease Monitoring",
+    "summary": "Use digital tools to support long-term patients with conditions like diabetes and heart failure.",
+    "details": "Design remote monitoring workflows, alert thresholds, and patient education nudges. Consider device interoperability and clinician workload.",
+    "category": "Chronic Care",
+    "tags": [
+      "IoT",
+      "Wearables",
+      "EHR",
+      "Behavioral"
+    ],
+    "regions": [
+      "Global"
+    ],
+    "impact_score": 9,
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "rural-healthcare-access",
+    "title": "Rural Healthcare Access",
+    "summary": "Bring specialists to underserved communities using telemedicine and outreach.",
+    "details": "Prototype referral triage, asynchronous consults, and offline-first apps. Include language support and bandwidth constraints.",
+    "category": "Access & Equity",
+    "tags": [
+      "Telehealth",
+      "Connectivity",
+      "Localization"
+    ],
+    "regions": [
+      "Rural",
+      "Remote"
+    ],
+    "impact_score": 8,
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "mental-health-support",
+    "title": "Mental Health Support",
+    "summary": "Scalable, affordable solutions for mental well-being and early screening.",
+    "details": "Design digital CBT, peer support, crisis routing, and privacy-preserving analytics. Measure engagement and outcomes.",
+    "category": "Behavioral Health",
+    "tags": [
+      "mHealth",
+      "AI",
+      "Privacy"
+    ],
+    "regions": [
+      "Global"
+    ],
+    "impact_score": 9,
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "care-coordination",
+    "title": "Care Coordination",
+    "summary": "Reduce fragmentation across providers and settings to improve continuity of care.",
+    "details": "Build shared care plans, task routing, and cross-org notifications. Consider FHIR, consent, and audit trails.",
+    "category": "Operations",
+    "tags": [
+      "FHIR",
+      "Interoperability",
+      "Workflow"
+    ],
+    "regions": [
+      "Global"
+    ],
+    "impact_score": 7,
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "medication-adherence",
+    "title": "Medication Adherence",
+    "summary": "Improve adherence for polypharmacy patients with timely reminders and pharmacist follow‑up.",
+    "details": "Design personalized reminder schedules, refill tracking, and risk stratification. Consider side‑effect reporting and caregiver access.",
+    "category": "Chronic Care",
+    "tags": [
+      "mHealth",
+      "NLP",
+      "Reminders"
+    ],
+    "regions": [
+      "Global"
+    ],
+    "impact_score": 8,
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "imaging-triage",
+    "title": "Imaging Triage",
+    "summary": "Prioritize critical radiology studies for rapid review using AI‑assisted flags.",
+    "details": "Create safe triage that reduces time‑to‑read. Address drift, calibration, and clinician oversight. Integrate with PACS/RIS.",
+    "category": "Diagnostics",
+    "tags": [
+      "AI",
+      "Computer Vision",
+      "PACS"
+    ],
+    "regions": [
+      "Urban",
+      "Academic"
+    ],
+    "impact_score": 7,
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cold-chain-tracking",
+    "title": "Vaccine Cold‑Chain Tracking",
+    "summary": "Ensure safe transport of vaccines with IoT temperature logging and alerts.",
+    "details": "Build sensor ingestion, anomaly alerts, and chain‑of‑custody audit. Handle offline syncing and tamper evidence.",
+    "category": "Supply Chain",
+    "tags": [
+      "IoT",
+      "Logistics",
+      "Edge"
+    ],
+    "regions": [
+      "Rural",
+      "Remote",
+      "LMIC"
+    ],
+    "impact_score": 8,
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "vaccination-scheduling",
+    "title": "Vaccination Scheduling & Equity",
+    "summary": "Reduce no‑shows and prioritize high‑risk groups using fair scheduling.",
+    "details": "Design multilingual booking, SMS reminders, walk‑in balancing, and equity‑aware prioritization. Measure coverage gaps.",
+    "category": "Access & Equity",
+    "tags": [
+      "Scheduling",
+      "Fairness",
+      "SMS"
+    ],
+    "regions": [
+      "Global"
+    ],
+    "impact_score": 7,
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "maternal-health",
+    "title": "Maternal Health Remote Monitoring",
+    "summary": "Detect early signs of preeclampsia and complications with home monitoring.",
+    "details": "Combine BP, symptom check‑ins, and escalation pathways. Include culturally sensitive education and midwife workflows.",
+    "category": "Maternal & Child Health",
+    "tags": [
+      "mHealth",
+      "BP",
+      "Education"
+    ],
+    "regions": [
+      "Rural",
+      "LMIC"
+    ],
+    "impact_score": 9,
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "antimicrobial-stewardship",
+    "title": "Antimicrobial Stewardship",
+    "summary": "Reduce inappropriate antibiotic use with decision support and audit‑feedback.",
+    "details": "Embed guidelines, local antibiograms, and nudges. Track DOT/DDD metrics and resistance trends.",
+    "category": "Operations",
+    "tags": [
+      "CDS",
+      "EHR",
+      "Quality"
+    ],
+    "regions": [
+      "Hospital",
+      "Global"
+    ],
+    "impact_score": 8,
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "eldercare-fall-prevention",
+    "title": "Elder Care Fall Detection & Prevention",
+    "summary": "Reduce falls at home and in facilities with sensing and risk scoring.",
+    "details": "Combine ambient sensors, wearable signals, and PT exercises. Address privacy, consent, and false alarms.",
+    "category": "Aging",
+    "tags": [
+      "Sensors",
+      "Risk",
+      "Rehab"
+    ],
+    "regions": [
+      "Home",
+      "Facility"
+    ],
+    "impact_score": 7,
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "oncology-navigation",
+    "title": "Oncology Navigation",
+    "summary": "Streamline patient navigation through complex cancer care pathways.",
+    "details": "Build appointment orchestration, symptom hotlines, and benefits counseling. Track time‑to‑treatment and PROs.",
+    "category": "Care Pathways",
+    "tags": [
+      "Workflow",
+      "PROs",
+      "Navigation"
+    ],
+    "regions": [
+      "Urban",
+      "Community"
+    ],
+    "impact_score": 8,
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "heart-failure-chronic-care-1-2270",
+    "title": "Heart Failure – Chronic Care",
+    "summary": "Design and evaluate solutions for heart failure within chronic care contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Chronic Care",
+    "tags": [
+      "Scheduling",
+      "FHIR",
+      "Navigation",
+      "Education",
+      "Wearables"
+    ],
+    "regions": [
+      "Facility",
+      "Global"
+    ],
+    "impact_score": 7,
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "asthma-chronic-care-2-5183",
+    "title": "Asthma – Chronic Care",
+    "summary": "Design and evaluate solutions for asthma within chronic care contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Chronic Care",
+    "tags": [
+      "Scheduling",
+      "Navigation",
+      "Sensors",
+      "Privacy"
+    ],
+    "regions": [
+      "Academic"
+    ],
+    "impact_score": 7,
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "diabetes-chronic-care-3-7396",
+    "title": "Diabetes – Chronic Care",
+    "summary": "Design and evaluate solutions for diabetes within chronic care contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Chronic Care",
+    "tags": [
+      "Privacy",
+      "AI",
+      "Fairness",
+      "IoT",
+      "Wearables"
+    ],
+    "regions": [
+      "Remote",
+      "Urban",
+      "Global"
+    ],
+    "impact_score": 7,
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "copd-chronic-care-8-5439",
+    "title": "Copd – Chronic Care",
+    "summary": "Design and evaluate solutions for COPD within chronic care contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Chronic Care",
+    "tags": [
+      "Sensors",
+      "IoT",
+      "AI",
+      "SMS",
+      "Risk"
+    ],
+    "regions": [
+      "Urban",
+      "Global"
+    ],
+    "impact_score": 9,
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "hypertension-chronic-care-16-928",
+    "title": "Hypertension – Chronic Care",
+    "summary": "Design and evaluate solutions for hypertension within chronic care contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Chronic Care",
+    "tags": [
+      "Wearables",
+      "FHIR",
+      "Scheduling",
+      "SMS",
+      "Computer Vision",
+      "CDS"
+    ],
+    "regions": [
+      "Academic",
+      "Urban"
+    ],
+    "impact_score": 9,
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "ckd-chronic-care-17-6221",
+    "title": "Ckd – Chronic Care",
+    "summary": "Design and evaluate solutions for CKD within chronic care contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Chronic Care",
+    "tags": [
+      "SMS",
+      "Wearables",
+      "Education",
+      "Scheduling",
+      "IoT",
+      "Privacy"
+    ],
+    "regions": [
+      "Community",
+      "Academic",
+      "Home"
+    ],
+    "impact_score": 8,
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "diabetes-chronic-care-27-2288",
+    "title": "Diabetes – Chronic Care",
+    "summary": "Design and evaluate solutions for diabetes within chronic care contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Chronic Care",
+    "tags": [
+      "CDS",
+      "PROs",
+      "SMS",
+      "Security",
+      "NLP",
+      "Sensors"
+    ],
+    "regions": [
+      "Urban",
+      "Remote"
+    ],
+    "impact_score": 10,
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "anxiety-behavioral-health-1-833",
+    "title": "Anxiety – Behavioral Health",
+    "summary": "Design and evaluate solutions for anxiety within behavioral health contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Behavioral Health",
+    "tags": [
+      "Computer Vision",
+      "FHIR",
+      "SMS",
+      "NLP"
+    ],
+    "regions": [
+      "Remote",
+      "Rural"
+    ],
+    "impact_score": 6,
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cbt-behavioral-health-3-643",
+    "title": "Cbt – Behavioral Health",
+    "summary": "Design and evaluate solutions for CBT within behavioral health contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Behavioral Health",
+    "tags": [
+      "Education",
+      "NLP",
+      "EHR",
+      "mHealth"
+    ],
+    "regions": [
+      "Urban",
+      "LMIC",
+      "Global"
+    ],
+    "impact_score": 8,
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "depression-behavioral-health-4-3409",
+    "title": "Depression – Behavioral Health",
+    "summary": "Design and evaluate solutions for depression within behavioral health contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Behavioral Health",
+    "tags": [
+      "Sensors",
+      "Wearables",
+      "IoT",
+      "EHR",
+      "FHIR",
+      "Education"
+    ],
+    "regions": [
+      "Community"
+    ],
+    "impact_score": 9,
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "ptsd-behavioral-health-7-1685",
+    "title": "Ptsd – Behavioral Health",
+    "summary": "Design and evaluate solutions for PTSD within behavioral health contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Behavioral Health",
+    "tags": [
+      "NLP",
+      "Scheduling",
+      "AI",
+      "Wearables",
+      "Risk"
+    ],
+    "regions": [
+      "Home"
+    ],
+    "impact_score": 7,
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "burnout-behavioral-health-8-1770",
+    "title": "Burnout – Behavioral Health",
+    "summary": "Design and evaluate solutions for burnout within behavioral health contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Behavioral Health",
+    "tags": [
+      "Risk",
+      "Sensors",
+      "Fairness"
+    ],
+    "regions": [
+      "Urban"
+    ],
+    "impact_score": 7,
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "substance-use-behavioral-health-19-8934",
+    "title": "Substance Use – Behavioral Health",
+    "summary": "Design and evaluate solutions for substance use within behavioral health contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Behavioral Health",
+    "tags": [
+      "Sensors",
+      "Privacy",
+      "IoT",
+      "Fairness",
+      "Wearables",
+      "NLP"
+    ],
+    "regions": [
+      "Global",
+      "LMIC"
+    ],
+    "impact_score": 6,
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "substance-use-behavioral-health-34-6063",
+    "title": "Substance Use – Behavioral Health",
+    "summary": "Design and evaluate solutions for substance use within behavioral health contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Behavioral Health",
+    "tags": [
+      "mHealth",
+      "Privacy",
+      "Scheduling",
+      "Education",
+      "Computer Vision",
+      "SMS"
+    ],
+    "regions": [
+      "Home",
+      "Rural"
+    ],
+    "impact_score": 9,
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "digital-divide-access-equity-1-2801",
+    "title": "Digital Divide – Access & Equity",
+    "summary": "Design and evaluate solutions for digital divide within access & equity contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Access & Equity",
+    "tags": [
+      "SMS",
+      "mHealth",
+      "Sensors",
+      "EHR",
+      "Risk"
+    ],
+    "regions": [
+      "Facility",
+      "Urban"
+    ],
+    "impact_score": 7,
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "rural-telehealth-access-equity-2-7616",
+    "title": "Rural Telehealth – Access & Equity",
+    "summary": "Design and evaluate solutions for rural telehealth within access & equity contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Access & Equity",
+    "tags": [
+      "Fairness",
+      "Security",
+      "Navigation"
+    ],
+    "regions": [
+      "Home",
+      "Rural",
+      "Global"
+    ],
+    "impact_score": 8,
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "language-access-access-equity-6-5301",
+    "title": "Language Access – Access & Equity",
+    "summary": "Design and evaluate solutions for language access within access & equity contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Access & Equity",
+    "tags": [
+      "Navigation",
+      "Security",
+      "Education",
+      "FHIR",
+      "PROs"
+    ],
+    "regions": [
+      "Urban"
+    ],
+    "impact_score": 6,
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "financial-toxicity-access-equity-8-1143",
+    "title": "Financial Toxicity – Access & Equity",
+    "summary": "Design and evaluate solutions for financial toxicity within access & equity contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Access & Equity",
+    "tags": [
+      "Education",
+      "Navigation",
+      "FHIR",
+      "PROs",
+      "EHR",
+      "Sensors"
+    ],
+    "regions": [
+      "Hospital",
+      "Facility"
+    ],
+    "impact_score": 7,
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "transportation-access-equity-14-1915",
+    "title": "Transportation – Access & Equity",
+    "summary": "Design and evaluate solutions for transportation within access & equity contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Access & Equity",
+    "tags": [
+      "Risk",
+      "PROs",
+      "SMS",
+      "AI"
+    ],
+    "regions": [
+      "Academic",
+      "Hospital"
+    ],
+    "impact_score": 8,
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "ecg-analysis-diagnostics-1-9072",
+    "title": "Ecg Analysis – Diagnostics",
+    "summary": "Design and evaluate solutions for ECG analysis within diagnostics contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Diagnostics",
+    "tags": [
+      "CDS",
+      "Fairness",
+      "Security",
+      "Risk",
+      "AI",
+      "EHR"
+    ],
+    "regions": [
+      "Community"
+    ],
+    "impact_score": 9,
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "retinopathy-diagnostics-2-3575",
+    "title": "Retinopathy – Diagnostics",
+    "summary": "Design and evaluate solutions for retinopathy within diagnostics contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Diagnostics",
+    "tags": [
+      "NLP",
+      "mHealth",
+      "CDS",
+      "Security"
+    ],
+    "regions": [
+      "Facility"
+    ],
+    "impact_score": 10,
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "pathology-ai-diagnostics-3-5291",
+    "title": "Pathology Ai – Diagnostics",
+    "summary": "Design and evaluate solutions for pathology AI within diagnostics contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Diagnostics",
+    "tags": [
+      "Security",
+      "Education",
+      "Fairness",
+      "Scheduling"
+    ],
+    "regions": [
+      "LMIC",
+      "Community",
+      "Rural"
+    ],
+    "impact_score": 9,
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "radiology-triage-diagnostics-4-8168",
+    "title": "Radiology Triage – Diagnostics",
+    "summary": "Design and evaluate solutions for radiology triage within diagnostics contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Diagnostics",
+    "tags": [
+      "Education",
+      "Scheduling",
+      "CDS",
+      "AI",
+      "SMS"
+    ],
+    "regions": [
+      "Rural"
+    ],
+    "impact_score": 10,
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "sepsis-detection-diagnostics-12-6606",
+    "title": "Sepsis Detection – Diagnostics",
+    "summary": "Design and evaluate solutions for sepsis detection within diagnostics contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Diagnostics",
+    "tags": [
+      "Security",
+      "Navigation",
+      "AI"
+    ],
+    "regions": [
+      "Global"
+    ],
+    "impact_score": 7,
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "neonatal-jaundice-maternal-child-health-1-7384",
+    "title": "Neonatal Jaundice – Maternal & Child Health",
+    "summary": "Design and evaluate solutions for neonatal jaundice within maternal & child health contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Maternal & Child Health",
+    "tags": [
+      "Fairness",
+      "FHIR",
+      "Wearables",
+      "IoT"
+    ],
+    "regions": [
+      "Community",
+      "LMIC",
+      "Urban"
+    ],
+    "impact_score": 10,
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "gestational-diabetes-maternal-child-health-2-5331",
+    "title": "Gestational Diabetes – Maternal & Child Health",
+    "summary": "Design and evaluate solutions for gestational diabetes within maternal & child health contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Maternal & Child Health",
+    "tags": [
+      "AI",
+      "Fairness",
+      "Navigation",
+      "IoT"
+    ],
+    "regions": [
+      "Global",
+      "Remote",
+      "LMIC"
+    ],
+    "impact_score": 7,
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "vaccination-maternal-child-health-3-3066",
+    "title": "Vaccination – Maternal & Child Health",
+    "summary": "Design and evaluate solutions for vaccination within maternal & child health contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Maternal & Child Health",
+    "tags": [
+      "Risk",
+      "Computer Vision",
+      "SMS"
+    ],
+    "regions": [
+      "Academic"
+    ],
+    "impact_score": 7,
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "preeclampsia-maternal-child-health-4-3112",
+    "title": "Preeclampsia – Maternal & Child Health",
+    "summary": "Design and evaluate solutions for preeclampsia within maternal & child health contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Maternal & Child Health",
+    "tags": [
+      "Privacy",
+      "Security",
+      "Wearables",
+      "PROs"
+    ],
+    "regions": [
+      "Remote",
+      "Global"
+    ],
+    "impact_score": 8,
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "growth-monitoring-maternal-child-health-6-9640",
+    "title": "Growth Monitoring – Maternal & Child Health",
+    "summary": "Design and evaluate solutions for growth monitoring within maternal & child health contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Maternal & Child Health",
+    "tags": [
+      "Privacy",
+      "SMS",
+      "Navigation",
+      "Education",
+      "Security",
+      "Fairness"
+    ],
+    "regions": [
+      "Facility"
+    ],
+    "impact_score": 6,
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "ckd-chronic-care-1-7678",
+    "title": "Ckd – Chronic Care",
+    "summary": "Design and evaluate solutions for CKD within chronic care contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Chronic Care",
+    "tags": [
+      "Privacy",
+      "FHIR",
+      "mHealth",
+      "Education",
+      "SMS"
+    ],
+    "regions": [
+      "Remote",
+      "Hospital"
+    ],
+    "impact_score": 9,
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "radiology-triage-diagnostics-4-9459",
+    "title": "Radiology Triage – Diagnostics",
+    "summary": "Design and evaluate solutions for radiology triage within diagnostics contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Diagnostics",
+    "tags": [
+      "Scheduling",
+      "Education",
+      "Wearables",
+      "IoT"
+    ],
+    "regions": [
+      "Remote"
+    ],
+    "impact_score": 6,
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "neonatal-jaundice-maternal-child-health-5-7136",
+    "title": "Neonatal Jaundice – Maternal & Child Health",
+    "summary": "Design and evaluate solutions for neonatal jaundice within maternal & child health contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Maternal & Child Health",
+    "tags": [
+      "Education",
+      "PROs",
+      "NLP",
+      "Fairness"
+    ],
+    "regions": [
+      "Community",
+      "Rural",
+      "Global"
+    ],
+    "impact_score": 8,
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "length-of-stay-operations-6-536",
+    "title": "Length Of Stay – Operations",
+    "summary": "Design and evaluate solutions for length of stay within operations contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Operations",
+    "tags": [
+      "AI",
+      "Education",
+      "CDS"
+    ],
+    "regions": [
+      "Urban",
+      "Hospital"
+    ],
+    "impact_score": 9,
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "last-mile-delivery-supply-chain-7-2171",
+    "title": "Last-Mile Delivery – Supply Chain",
+    "summary": "Design and evaluate solutions for last-mile delivery within supply chain contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Supply Chain",
+    "tags": [
+      "AI",
+      "IoT",
+      "Scheduling",
+      "CDS"
+    ],
+    "regions": [
+      "Facility",
+      "Hospital"
+    ],
+    "impact_score": 9,
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "burnout-behavioral-health-11-8394",
+    "title": "Burnout – Behavioral Health",
+    "summary": "Design and evaluate solutions for burnout within behavioral health contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Behavioral Health",
+    "tags": [
+      "SMS",
+      "Education",
+      "Privacy",
+      "NLP",
+      "Security"
+    ],
+    "regions": [
+      "Facility",
+      "Remote"
+    ],
+    "impact_score": 10,
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "retinopathy-diagnostics-31-6784",
+    "title": "Retinopathy – Diagnostics",
+    "summary": "Design and evaluate solutions for retinopathy within diagnostics contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Diagnostics",
+    "tags": [
+      "Fairness",
+      "CDS",
+      "EHR"
+    ],
+    "regions": [
+      "Home"
+    ],
+    "impact_score": 7,
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "transportation-access-equity-39-9702",
+    "title": "Transportation – Access & Equity",
+    "summary": "Design and evaluate solutions for transportation within access & equity contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Access & Equity",
+    "tags": [
+      "PROs",
+      "FHIR",
+      "NLP"
+    ],
+    "regions": [
+      "Home"
+    ],
+    "impact_score": 6,
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "sepsis-detection-diagnostics-40-5110",
+    "title": "Sepsis Detection – Diagnostics",
+    "summary": "Design and evaluate solutions for sepsis detection within diagnostics contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Diagnostics",
+    "tags": [
+      "Scheduling",
+      "Computer Vision",
+      "CDS"
+    ],
+    "regions": [
+      "Urban"
+    ],
+    "impact_score": 9,
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "dementia-support-aging-107-4724",
+    "title": "Dementia Support – Aging",
+    "summary": "Design and evaluate solutions for dementia support within aging contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Aging",
+    "tags": [
+      "EHR",
+      "Fairness",
+      "AI",
+      "Sensors",
+      "Education",
+      "Scheduling"
+    ],
+    "regions": [
+      "Urban",
+      "Rural",
+      "Global"
+    ],
+    "impact_score": 6,
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "ecg-analysis-diagnostics-157-490",
+    "title": "Ecg Analysis – Diagnostics",
+    "summary": "Design and evaluate solutions for ECG analysis within diagnostics contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Diagnostics",
+    "tags": [
+      "Security",
+      "mHealth",
+      "CDS",
+      "Navigation",
+      "Education",
+      "Wearables"
+    ],
+    "regions": [
+      "Community"
+    ],
+    "impact_score": 10,
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "antimicrobial-stewardship-operations-159-1653",
+    "title": "Antimicrobial Stewardship – Operations",
+    "summary": "Design and evaluate solutions for antimicrobial stewardship within operations contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Operations",
+    "tags": [
+      "Fairness",
+      "PROs",
+      "Sensors"
+    ],
+    "regions": [
+      "Remote",
+      "LMIC"
+    ],
+    "impact_score": 7,
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "ptsd-behavioral-health-254-7554",
+    "title": "Ptsd – Behavioral Health",
+    "summary": "Design and evaluate solutions for PTSD within behavioral health contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Behavioral Health",
+    "tags": [
+      "Wearables",
+      "IoT",
+      "NLP"
+    ],
+    "regions": [
+      "Academic"
+    ],
+    "impact_score": 6,
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "stroke-fast-track-care-pathways-315-5888",
+    "title": "Stroke Fast-Track – Care Pathways",
+    "summary": "Design and evaluate solutions for stroke fast-track within care pathways contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Care Pathways",
+    "tags": [
+      "Education",
+      "Fairness",
+      "Navigation",
+      "Scheduling"
+    ],
+    "regions": [
+      "Urban"
+    ],
+    "impact_score": 7,
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "asthma-chronic-care-325-8150",
+    "title": "Asthma – Chronic Care",
+    "summary": "Design and evaluate solutions for asthma within chronic care contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Chronic Care",
+    "tags": [
+      "Fairness",
+      "CDS",
+      "Wearables",
+      "IoT"
+    ],
+    "regions": [
+      "Facility",
+      "Hospital",
+      "LMIC"
+    ],
+    "impact_score": 10,
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "rural-telehealth-access-equity-516-1710",
+    "title": "Rural Telehealth – Access & Equity",
+    "summary": "Design and evaluate solutions for rural telehealth within access & equity contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Access & Equity",
+    "tags": [
+      "Fairness",
+      "AI",
+      "IoT"
+    ],
+    "regions": [
+      "Rural",
+      "Hospital",
+      "Facility"
+    ],
+    "impact_score": 8,
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "gestational-diabetes-maternal-child-health-653-6121",
+    "title": "Gestational Diabetes – Maternal & Child Health",
+    "summary": "Design and evaluate solutions for gestational diabetes within maternal & child health contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Maternal & Child Health",
+    "tags": [
+      "Wearables",
+      "PROs",
+      "Fairness",
+      "AI",
+      "Security",
+      "IoT"
+    ],
+    "regions": [
+      "LMIC"
+    ],
+    "impact_score": 10,
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "ppe-forecasting-supply-chain-997-3313",
+    "title": "Ppe Forecasting – Supply Chain",
+    "summary": "Design and evaluate solutions for PPE forecasting within supply chain contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Supply Chain",
+    "tags": [
+      "Security",
+      "Education",
+      "Fairness",
+      "Wearables"
+    ],
+    "regions": [
+      "Home",
+      "Community"
+    ],
+    "impact_score": 7,
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "hypertension-chronic-care-1-1097",
+    "title": "Hypertension – Chronic Care",
+    "summary": "Design and evaluate solutions for hypertension within chronic care contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Chronic Care",
+    "tags": [
+      "Sensors",
+      "Scheduling",
+      "FHIR"
+    ],
+    "regions": [
+      "Hospital"
+    ],
+    "impact_score": 6,
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "retinopathy-diagnostics-4-1606",
+    "title": "Retinopathy – Diagnostics",
+    "summary": "Design and evaluate solutions for retinopathy within diagnostics contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Diagnostics",
+    "tags": [
+      "Scheduling",
+      "Risk",
+      "mHealth",
+      "SMS",
+      "Computer Vision",
+      "IoT"
+    ],
+    "regions": [
+      "Hospital",
+      "Community",
+      "Academic"
+    ],
+    "impact_score": 6,
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "neonatal-jaundice-maternal-child-health-5-5117",
+    "title": "Neonatal Jaundice – Maternal & Child Health",
+    "summary": "Design and evaluate solutions for neonatal jaundice within maternal & child health contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Maternal & Child Health",
+    "tags": [
+      "IoT",
+      "NLP",
+      "PROs"
+    ],
+    "regions": [
+      "Facility",
+      "Rural",
+      "Hospital"
+    ],
+    "impact_score": 6,
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "ppe-forecasting-supply-chain-7-7631",
+    "title": "Ppe Forecasting – Supply Chain",
+    "summary": "Design and evaluate solutions for PPE forecasting within supply chain contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Supply Chain",
+    "tags": [
+      "Navigation",
+      "Education",
+      "Risk",
+      "AI",
+      "mHealth"
+    ],
+    "regions": [
+      "Hospital",
+      "LMIC",
+      "Remote"
+    ],
+    "impact_score": 6,
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "oncology-navigation-care-pathways-18-2062",
+    "title": "Oncology Navigation – Care Pathways",
+    "summary": "Design and evaluate solutions for oncology navigation within care pathways contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Care Pathways",
+    "tags": [
+      "Risk",
+      "Navigation",
+      "CDS",
+      "Security"
+    ],
+    "regions": [
+      "Remote",
+      "Global"
+    ],
+    "impact_score": 6,
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "burnout-behavioral-health-29-1556",
+    "title": "Burnout – Behavioral Health",
+    "summary": "Design and evaluate solutions for burnout within behavioral health contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Behavioral Health",
+    "tags": [
+      "PROs",
+      "NLP",
+      "Sensors",
+      "IoT",
+      "Wearables",
+      "Navigation"
+    ],
+    "regions": [
+      "LMIC",
+      "Community",
+      "Home"
+    ],
+    "impact_score": 9,
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "rural-telehealth-access-equity-246-5299",
+    "title": "Rural Telehealth – Access & Equity",
+    "summary": "Design and evaluate solutions for rural telehealth within access & equity contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Access & Equity",
+    "tags": [
+      "AI",
+      "Privacy",
+      "NLP"
+    ],
+    "regions": [
+      "Home"
+    ],
+    "impact_score": 10,
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "radiology-triage-diagnostics-373-3630",
+    "title": "Radiology Triage – Diagnostics",
+    "summary": "Design and evaluate solutions for radiology triage within diagnostics contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Diagnostics",
+    "tags": [
+      "Privacy",
+      "Security",
+      "PROs",
+      "EHR",
+      "mHealth"
+    ],
+    "regions": [
+      "Remote",
+      "Global"
+    ],
+    "impact_score": 7,
+    "difficulty": "Beginner"
+  },
+  {
+    "id": "vaccine-cold-chain-supply-chain-664-1606",
+    "title": "Vaccine Cold-Chain – Supply Chain",
+    "summary": "Design and evaluate solutions for vaccine cold-chain within supply chain contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Supply Chain",
+    "tags": [
+      "Privacy",
+      "FHIR",
+      "Fairness",
+      "Education"
+    ],
+    "regions": [
+      "Global",
+      "Remote",
+      "LMIC"
+    ],
+    "impact_score": 7,
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "sepsis-detection-diagnostics-778-1259",
+    "title": "Sepsis Detection – Diagnostics",
+    "summary": "Design and evaluate solutions for sepsis detection within diagnostics contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Diagnostics",
+    "tags": [
+      "AI",
+      "mHealth",
+      "IoT"
+    ],
+    "regions": [
+      "LMIC"
+    ],
+    "impact_score": 9,
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "length-of-stay-operations-1032-4110",
+    "title": "Length Of Stay – Operations",
+    "summary": "Design and evaluate solutions for length of stay within operations contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Operations",
+    "tags": [
+      "AI",
+      "FHIR",
+      "PROs"
+    ],
+    "regions": [
+      "Urban",
+      "Global"
+    ],
+    "impact_score": 10,
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "polypharmacy-aging-1493-3915",
+    "title": "Polypharmacy – Aging",
+    "summary": "Design and evaluate solutions for polypharmacy within aging contexts, balancing outcomes, equity, and clinician workflow.",
+    "details": "Prototype data pipelines, decision support, and patient engagement. Consider measurement, biases, and secure interoperability (e.g., FHIR).",
+    "category": "Aging",
+    "tags": [
+      "IoT",
+      "SMS",
+      "mHealth",
+      "Education"
+    ],
+    "regions": [
+      "LMIC",
+      "Hospital",
+      "Urban"
+    ],
+    "impact_score": 7,
+    "difficulty": "Advanced"
+  }
+]

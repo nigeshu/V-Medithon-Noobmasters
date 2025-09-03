@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | V‑Medithon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    .grid { display:grid; grid-template-columns: 1fr 1fr; gap:18px; }
+    .card { transition: box-shadow .2s ease, transform .05s ease; }
+    .card:hover { box-shadow: 0 14px 28px rgba(2,6,23,0.12); transform: translateY(-1px); }
+    .table { width:100%; border-collapse: collapse; }
+    .table th, .table td { text-align:left; padding:12px 12px; border-bottom:1px solid #e5e7eb; font-size:15px; }
+    .tag { display:inline-block; padding:6px 10px; border-radius:999px; background:#fef3c7; color:#92400e; border:1px solid #fde68a; font-size:12px; margin-right:6px; }
+    .appt-table { width:100%; border-collapse: collapse; table-layout: fixed; }
+    .appt-table th, .appt-table td { text-align:left; padding:12px 12px; border-bottom:1px solid #e5e7eb; }
+    .appt-table th:nth-child(1), .appt-table td:nth-child(1) { width:50%; }
+    .appt-table th:nth-child(2), .appt-table td:nth-child(2) { width:20%; }
+    .appt-table th:nth-child(3), .appt-table td:nth-child(3) { width:30%; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="logo" href="index.html">V‑Medithon</a>
+      <nav class="main-nav">
+        <a href="ai.html" class="btn btn-outline">AI Chatbot</a>
+        <a href="portal.html" class="btn btn-secondary">Switch Role</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <h1 class="section-title">Admin Dashboard</h1>
+        <p class="section-lead">Manage relationships between doctors and patients, and map solutions to problems. Below is your hospital snapshot and public submissions.</p>
+        <article class="card" style="margin:12px 0;">
+          <div style="display:flex; gap:16px; flex-wrap:wrap;">
+            <div style="flex:1; min-width:220px;">
+              <h4 style="margin:0 0 6px;">About the Hospital</h4>
+              <div style="color:#475569;">Multi-specialty care with a focus on chronic disease management, emergency response, and community outreach. Average monthly OPD visits: 12,400. Bed capacity: 350. ICU beds: 32.</div>
+            </div>
+            <div style="flex:1; min-width:220px;">
+              <h4 style="margin:0 0 6px;">Quick KPIs</h4>
+              <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                <span class="tag">Readmission 30d: 6.2%</span>
+                <span class="tag">Avg. LOS: 4.1d</span>
+                <span class="tag">Tele-visits/mo: 1,150</span>
+                <span class="tag">Vaccines/mo: 3,400</span>
+              </div>
+            </div>
+          </div>
+        </article>
+        <div class="grid">
+          <article class="card">
+            <h4>Doctors</h4>
+            <table class="table" id="docTable"><thead><tr><th>Name</th><th>Specialty</th><th>Patients</th></tr></thead><tbody></tbody></table>
+          </article>
+          <article class="card">
+            <h4>Patients</h4>
+            <table class="table" id="patTable"><thead><tr><th>Name</th><th>Primary Doctor</th><th>Conditions</th></tr></thead><tbody></tbody></table>
+          </article>
+          <article class="card" style="grid-column:1 / -1;">
+            <h4>Solutions ↔ Problems</h4>
+            <div id="solutions"></div>
+          </article>
+
+          <article class="card" style="grid-column:1 / -1;">
+            <h4>Public Solutions</h4>
+            <div id="publicSol"></div>
+          </article>
+
+          <!-- ZOHO CRM Integration -->
+          <article class="card" style="grid-column:1 / -1;">
+            <h4>ZOHO CRM Dashboard</h4>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin-bottom:16px;">
+              <div>
+                <h5 style="margin:0 0 8px 0; color:#1e40af;">Lead Management</h5>
+                <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                  <span class="tag">New Leads: 12</span>
+                  <span class="tag">Qualified: 8</span>
+                  <span class="tag">Converted: 3</span>
+                </div>
+                <button class="btn btn-outline" style="margin-top:8px; font-size:12px;" onclick="addNewLead()">+ Add Lead</button>
+              </div>
+              <div>
+                <h5 style="margin:0 0 8px 0; color:#1e40af;">Patient Analytics</h5>
+                <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                  <span class="tag">Total Patients: 1,247</span>
+                  <span class="tag">Active: 892</span>
+                  <span class="tag">Retention: 78%</span>
+                </div>
+                <button class="btn btn-outline" style="margin-top:8px; font-size:12px;" onclick="viewAnalytics()">View Details</button>
+              </div>
+            </div>
+            
+            <div id="crmLeads" style="margin-top:16px;">
+              <h5 style="margin:0 0 12px 0; color:#1e40af;">Recent Leads</h5>
+              <div id="leadsList"></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+  const docs = [
+    { name:'Dr. Rao', spec:'Endocrinology', patients:3 },
+    { name:'Dr. Das', spec:'Cardiology', patients:2 },
+  ];
+  const pats = [
+    { name:'Arun Kumar', pd:'Dr. Rao', cond:['Diabetes'] },
+    { name:'Meera Shah', pd:'Dr. Das', cond:['Hypertension'] },
+    { name:'Ravi Patel', pd:'Dr. Rao', cond:['COPD'] },
+  ];
+  const sols = [
+    { solution:'Remote BP Monitoring', problem:'Hypertension adherence' },
+    { solution:'A1C Coaching App', problem:'Glycemic control' },
+  ];
+  const docT = document.querySelector('#docTable tbody');
+  const patT = document.querySelector('#patTable tbody');
+  // Merge appointments into doctor counts (increment if exists, else add new with 1+)
+  const appts = JSON.parse(localStorage.getItem('appointments')||'[]');
+  const countByDoc = {};
+  const specByDoc = {};
+  appts.forEach(a=>{ countByDoc[a.doctor] = (countByDoc[a.doctor]||0) + 1; if (!specByDoc[a.doctor]) specByDoc[a.doctor]=a.spec; });
+  const nameIdx = new Map(docs.map((d,i)=>[d.name,i]));
+  Object.keys(countByDoc).forEach(name=>{
+    const add = countByDoc[name];
+    const spec = specByDoc[name] || 'General';
+    if (nameIdx.has(name)) {
+      const i = nameIdx.get(name);
+      docs[i].patients += add;
+    } else {
+      docs.push({ name, spec, patients: add });
+    }
+  });
+  // Render tables
+  docs.forEach(d=>{ const tr=document.createElement('tr'); tr.innerHTML=`<td>${d.name}</td><td>${d.spec}</td><td>${d.patients}</td>`; docT.appendChild(tr); });
+  pats.forEach(p=>{ const tr=document.createElement('tr'); tr.innerHTML=`<td>${p.name}</td><td>${p.pd}</td><td>${p.cond.map(c=>`<span class='tag'>${c}</span>`).join('')}</td>`; patT.appendChild(tr); });
+  document.getElementById('solutions').innerHTML = sols.map(s=>`<div><span class='tag'>${s.solution}</span> → <span class='tag'>${s.problem}</span></div>`).join('');
+
+  // Show appointments per doctor from patient scheduler
+  // appts already loaded above
+  if (appts.length){
+    const byDoc = {};
+    appts.forEach(a=>{ byDoc[a.doctor] = byDoc[a.doctor] || []; byDoc[a.doctor].push(a); });
+    const apptCard = document.createElement('article');
+    apptCard.className='card';
+    apptCard.style.gridColumn = '1 / -1';
+    apptCard.innerHTML = '<h4>Appointments (from Patients)</h4>' +
+      Object.keys(byDoc).map(d=>{
+        const rows = byDoc[d].map(a=>`<tr><td>${a.spec}</td><td>${a.time}</td><td>${a.date}</td></tr>`).join('');
+        return `<div style="margin:10px 0;">
+          <div style="font-weight:600; margin-bottom:6px;">${d}</div>
+          <table class="table appt-table"><thead><tr><th>Specialty</th><th>Time</th><th>Date</th></tr></thead><tbody>${rows}</tbody></table>
+        </div>`;
+      }).join('');
+    document.querySelector('.grid').appendChild(apptCard);
+  }
+
+  // Load public submissions from localStorage (submitted via index.html form)
+  const pub = JSON.parse(localStorage.getItem('public_solutions') || '[]');
+  const pubWrap = document.getElementById('publicSol');
+  if (pub.length === 0) {
+    pubWrap.innerHTML = '<div style="color:#475569;">No public submissions yet.</div>';
+  } else {
+    pubWrap.innerHTML = pub.map(i=>`
+      <div style="border:1px solid #e5e7eb; border-radius:10px; padding:12px; margin-bottom:10px;">
+        <div style="font-weight:600;">${i.title}</div>
+        <div style="color:#475569; margin-top:6px;">${i.desc}</div>
+        <div style="color:#334155; margin-top:6px;"><strong>Recommendation:</strong> ${i.reco}</div>
+        <div style="color:#64748b; margin-top:6px; font-size:12px;">Submitted by ${i.name||'Anonymous'} ${i.email?('· '+i.email):''} on ${new Date(i.ts).toLocaleString()}</div>
+      </div>
+    `).join('');
+  }
+  </script>
+
+  <script>
+    // ZOHO CRM Integration Functions
+    const sampleLeads = [
+      { name: 'Dr. Priya Sharma', email: 'priya.sharma@cityclinic.com', phone: '+91-98765-43210', source: 'Website', status: 'New', interest: 'Telemedicine Platform', date: '2024-01-15' },
+      { name: 'Rajesh Kumar', email: 'rajesh.kumar@ruralhealth.org', phone: '+91-87654-32109', source: 'Referral', status: 'Qualified', interest: 'Patient Management System', date: '2024-01-14' },
+      { name: 'Meera Patel', email: 'meera.patel@medtech.co', phone: '+91-76543-21098', source: 'Conference', status: 'Converted', interest: 'AI Diagnostics Tool', date: '2024-01-13' },
+      { name: 'Dr. Amit Singh', email: 'amit.singh@multispecialty.com', phone: '+91-65432-10987', source: 'Website', status: 'New', interest: 'Healthcare Analytics', date: '2024-01-12' }
+    ];
+
+    function renderLeads() {
+      const leadsList = document.getElementById('leadsList');
+      leadsList.innerHTML = sampleLeads.map(lead => `
+        <div style="border:1px solid #e5e7eb; border-radius:8px; padding:12px; margin-bottom:8px; background:#fafafa;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <div style="font-weight:600;">${lead.name}</div>
+            <span class="tag" style="background:${lead.status === 'New' ? '#dbeafe' : lead.status === 'Qualified' ? '#fef3c7' : '#dcfce7'}; color:${lead.status === 'New' ? '#1e40af' : lead.status === 'Qualified' ? '#92400e' : '#166534'};">
+              ${lead.status}
+            </span>
+          </div>
+          <div style="color:#475569; font-size:13px; margin-bottom:4px;">${lead.email} • ${lead.phone}</div>
+          <div style="color:#64748b; font-size:12px;">Interest: ${lead.interest} • Source: ${lead.source} • Date: ${lead.date}</div>
+        </div>
+      `).join('');
+    }
+
+    function addNewLead() {
+      const name = prompt('Enter lead name:');
+      if (name) {
+        const email = prompt('Enter email:');
+        const phone = prompt('Enter phone:');
+        const interest = prompt('Enter area of interest:');
+        
+        if (email && phone && interest) {
+          const newLead = {
+            name,
+            email,
+            phone,
+            source: 'Manual Entry',
+            status: 'New',
+            interest,
+            date: new Date().toISOString().split('T')[0]
+          };
+          sampleLeads.unshift(newLead);
+          renderLeads();
+          alert('Lead added successfully!');
+        }
+      }
+    }
+
+    function viewAnalytics() {
+      alert('Opening detailed analytics dashboard...\n\nThis would integrate with ZOHO CRM for real-time data visualization and reporting.');
+    }
+
+    // Initialize CRM on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      renderLeads();
+    });
+  </script>
+</body>
+</html>
+
+
