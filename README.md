@@ -1,4 +1,4 @@
-# V‑Medithon – Setup Guide (Step by Step)
+# Hospio – Setup Guide (Step by Step)
 
 This guide shows how to run the site, connect the AI chatbot (OpenRouter), and enable Firebase Login/Signup (Doctor/Nurse/Patient).
 
